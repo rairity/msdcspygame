@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mission Game</title>
 
 <style>
@@ -204,7 +205,7 @@ button:hover {
 
 <div class="container">
 
-    <!-- SETUP SCREEN -->
+    <!-- SETUP -->
     <div id="setupScreen">
 
         <h1>🎭 Mission Game</h1>
@@ -223,9 +224,13 @@ button:hover {
             onkeydown="playerEnter(event)"
         >
 
-        <button onclick="addPlayer()">➕ Add Player</button>
+        <button onclick="addPlayer()">
+            ➕ Add Player
+        </button>
 
-        <div class="count" id="playerCount">0 players</div>
+        <div class="count" id="playerCount">
+            0 players
+        </div>
 
         <div id="playerList"></div>
 
@@ -237,16 +242,20 @@ button:hover {
             placeholder="Write a mission..."
         ></textarea>
 
-        <button onclick="addMission()">➕ Add Mission</button>
+        <button onclick="addMission()">
+            ➕ Add Mission
+        </button>
 
-        <div class="count" id="missionCount">0 missions</div>
+        <div class="count" id="missionCount">
+            0 missions
+        </div>
 
         <div id="missionList"></div>
 
-
         <div class="info-box">
-            💡 You can add more missions than players.<br>
-            Example: 16 players + 30 missions = 16 missions will be randomly selected.
+            💡 You can add MORE missions than players.
+            <br><br>
+            Example: 10 players + 30 missions → 10 missions are randomly selected.
         </div>
 
         <button onclick="distributeMissions()">
@@ -256,7 +265,7 @@ button:hover {
     </div>
 
 
-    <!-- READY SCREEN -->
+    <!-- READY -->
     <div id="readyScreen" class="hidden">
 
         <h1>🎉 Game Ready!</h1>
@@ -267,7 +276,7 @@ button:hover {
             <p>players</p>
 
             <div class="ready-number" id="readyMissions">0</div>
-            <p>secret missions assigned</p>
+            <p>missions assigned</p>
 
         </div>
 
@@ -287,7 +296,7 @@ button:hover {
     </div>
 
 
-    <!-- NAME SELECTION SCREEN -->
+    <!-- NAME SELECTION -->
     <div id="nameScreen" class="hidden">
 
         <h1>👤 Who Are You?</h1>
@@ -305,7 +314,7 @@ button:hover {
     </div>
 
 
-    <!-- SECRET MISSION SCREEN -->
+    <!-- SECRET MISSION -->
     <div id="missionScreen" class="hidden">
 
         <h1 id="helloName">Hello!</h1>
@@ -318,7 +327,10 @@ button:hover {
                 YOUR SECRET MISSION
             </div>
 
-            <div class="mission-content" id="secretMission"></div>
+            <div
+                class="mission-content"
+                id="secretMission"
+            ></div>
 
         </div>
 
@@ -340,19 +352,29 @@ button:hover {
 let players = [];
 let missions = [];
 let assignments = {};
-let gameStarted = false;
 
 
-// -----------------------------
+// =====================================
 // SCREEN FUNCTIONS
-// -----------------------------
+// =====================================
 
 function hideAllScreens() {
 
-    document.getElementById("setupScreen").classList.add("hidden");
-    document.getElementById("readyScreen").classList.add("hidden");
-    document.getElementById("nameScreen").classList.add("hidden");
-    document.getElementById("missionScreen").classList.add("hidden");
+    document
+        .getElementById("setupScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("readyScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("nameScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("missionScreen")
+        .classList.add("hidden");
 
 }
 
@@ -361,47 +383,21 @@ function showReady() {
 
     hideAllScreens();
 
-    document.getElementById("readyScreen").classList.remove("hidden");
+    document
+        .getElementById("readyScreen")
+        .classList.remove("hidden");
 
 }
 
 
-function showNameSelection() {
-
-    hideAllScreens();
-
-    const container = document.getElementById("nameButtons");
-
-    container.innerHTML = "";
-
-    players.forEach(player => {
-
-        const button = document.createElement("button");
-
-        button.className = "name-button";
-
-        button.textContent = "👤 " + player;
-
-        button.onclick = function() {
-            showMission(player);
-        };
-
-        container.appendChild(button);
-
-    });
-
-    document.getElementById("nameScreen").classList.remove("hidden");
-
-}
-
-
-// -----------------------------
-// PLAYERS
-// -----------------------------
+// =====================================
+// PLAYER FUNCTIONS
+// =====================================
 
 function addPlayer() {
 
-    const input = document.getElementById("playerInput");
+    const input =
+        document.getElementById("playerInput");
 
     const name = input.value.trim();
 
@@ -441,18 +437,21 @@ function playerEnter(event) {
 
 function updatePlayerList() {
 
-    const list = document.getElementById("playerList");
+    const list =
+        document.getElementById("playerList");
 
     list.innerHTML = "";
 
     players.forEach((player, index) => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "player";
 
         div.innerHTML = `
             <span>👤 ${escapeHTML(player)}</span>
+
             <button
                 class="remove"
                 onclick="removePlayer(${index})"
@@ -465,10 +464,13 @@ function updatePlayerList() {
 
     });
 
-
-    document.getElementById("playerCount").textContent =
+    document
+        .getElementById("playerCount")
+        .textContent =
         players.length +
-        (players.length === 1 ? " player" : " players");
+        (players.length === 1
+            ? " player"
+            : " players");
 
 }
 
@@ -482,13 +484,14 @@ function removePlayer(index) {
 }
 
 
-// -----------------------------
-// MISSIONS
-// -----------------------------
+// =====================================
+// MISSION FUNCTIONS
+// =====================================
 
 function addMission() {
 
-    const input = document.getElementById("missionInput");
+    const input =
+        document.getElementById("missionInput");
 
     const mission = input.value.trim();
 
@@ -510,13 +513,15 @@ function addMission() {
 
 function updateMissionList() {
 
-    const list = document.getElementById("missionList");
+    const list =
+        document.getElementById("missionList");
 
     list.innerHTML = "";
 
     missions.forEach((mission, index) => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "mission-item";
 
@@ -537,10 +542,13 @@ function updateMissionList() {
 
     });
 
-
-    document.getElementById("missionCount").textContent =
+    document
+        .getElementById("missionCount")
+        .textContent =
         missions.length +
-        (missions.length === 1 ? " mission" : " missions");
+        (missions.length === 1
+            ? " mission"
+            : " missions");
 
 }
 
@@ -554,47 +562,53 @@ function removeMission(index) {
 }
 
 
-// -----------------------------
-// RANDOMIZATION
-// -----------------------------
+// =====================================
+// RANDOMIZE
+// =====================================
 
 function shuffle(array) {
 
-    for (let i = array.length - 1; i > 0; i--) {
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
 
-        const j = Math.floor(Math.random() * (i + 1));
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
 
-        [array[i], array[j]] = [array[j], array[i]];
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
 
     }
 
 }
 
 
-// -----------------------------
+// =====================================
 // DISTRIBUTE MISSIONS
-// -----------------------------
+// =====================================
 
 function distributeMissions() {
 
-    // Need at least one player
-    if (players.length < 1) {
+    /*
+        THERE IS NO 16 PLAYER REQUIREMENT.
 
-        alert("Add at least one player!");
-
-        return;
-    }
+        The game works with ANY number of players.
+    */
 
 
-    // Need at least as many missions as players
-    if (missions.length < players.length) {
+    if (players.length === 0) {
 
         alert(
-            "You need at least " +
-            players.length +
-            " different missions for " +
-            players.length +
-            " players!"
+            "Please add at least 1 player!"
         );
 
         return;
@@ -602,115 +616,190 @@ function distributeMissions() {
 
 
     /*
-        STEP 1:
-        Copy all missions so the original list
-        is not changed.
+        You must have at least as many
+        missions as players.
     */
 
-    let shuffledMissions = [...missions];
+    if (missions.length < players.length) {
+
+        alert(
+            "You have " +
+            players.length +
+            " players but only " +
+            missions.length +
+            " missions.\n\n" +
+            "Please add at least " +
+            players.length +
+            " missions."
+        );
+
+        return;
+    }
 
 
     /*
-        STEP 2:
+        Copy all missions.
+    */
+
+    let availableMissions =
+        [...missions];
+
+
+    /*
         Randomize ALL missions.
     */
 
-    shuffle(shuffledMissions);
+    shuffle(availableMissions);
 
 
     /*
-        STEP 3:
-        Take only as many missions as there
-        are players.
+        Select only the number of missions
+        needed for the number of players.
 
         Example:
-        16 players + 30 missions
-        → randomly select 16 missions.
+
+        7 players
+        20 missions
+
+        → randomly select 7 missions.
     */
 
     let selectedMissions =
-        shuffledMissions.slice(0, players.length);
+        availableMissions.slice(
+            0,
+            players.length
+        );
 
 
     /*
-        STEP 4:
-        Shuffle the selected missions AGAIN.
-        This makes the final assignment even
-        less predictable.
+        Randomize the selected missions again.
     */
 
     shuffle(selectedMissions);
 
 
     /*
-        STEP 5:
-        Shuffle the players too.
+        Randomize the players.
     */
 
-    let shuffledPlayers = [...players];
+    let shuffledPlayers =
+        [...players];
 
     shuffle(shuffledPlayers);
 
 
     /*
-        STEP 6:
-        Give exactly ONE unique mission
-        to each player.
+        Give each player exactly ONE
+        different mission.
     */
 
     assignments = {};
 
-    shuffledPlayers.forEach((player, index) => {
+    for (
+        let i = 0;
+        i < shuffledPlayers.length;
+        i++
+    ) {
 
-        assignments[player] =
-            selectedMissions[index];
+        assignments[
+            shuffledPlayers[i]
+        ] = selectedMissions[i];
 
-    });
-
-
-    gameStarted = true;
+    }
 
 
     /*
-        Show the number of players and
-        number of missions actually assigned.
+        Update ready screen.
     */
 
-    document.getElementById("readyPlayers").textContent =
+    document
+        .getElementById("readyPlayers")
+        .textContent =
         players.length;
 
-    document.getElementById("readyMissions").textContent =
+    document
+        .getElementById("readyMissions")
+        .textContent =
         players.length;
 
 
     /*
-        Hide the mission list so nobody can
-        see the original missions after
+        Hide the mission list after
         distribution.
     */
 
-    document.getElementById("missionList").innerHTML = "";
+    document
+        .getElementById("missionList")
+        .innerHTML = "";
+
 
     showReady();
 
 }
 
 
-// -----------------------------
+// =====================================
+// NAME SELECTION
+// =====================================
+
+function showNameSelection() {
+
+    hideAllScreens();
+
+    const container =
+        document.getElementById("nameButtons");
+
+    container.innerHTML = "";
+
+    players.forEach(player => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "name-button";
+
+        button.textContent =
+            "👤 " + player;
+
+        button.onclick = function() {
+
+            showMission(player);
+
+        };
+
+        container.appendChild(button);
+
+    });
+
+    document
+        .getElementById("nameScreen")
+        .classList.remove("hidden");
+
+}
+
+
+// =====================================
 // SHOW SECRET MISSION
-// -----------------------------
+// =====================================
 
 function showMission(player) {
 
     hideAllScreens();
 
-    document.getElementById("helloName").textContent =
+    document
+        .getElementById("helloName")
+        .textContent =
         "Hello, " + player + "!";
 
-    document.getElementById("secretMission").textContent =
+    document
+        .getElementById("secretMission")
+        .textContent =
         assignments[player];
 
-    document.getElementById("missionScreen").classList.remove("hidden");
+    document
+        .getElementById("missionScreen")
+        .classList.remove("hidden");
 
 }
 
@@ -722,14 +811,16 @@ function hideMission() {
 }
 
 
-// -----------------------------
+// =====================================
 // NEW GAME
-// -----------------------------
+// =====================================
 
 function newGame() {
 
     const answer =
-        confirm("Start a completely new game?");
+        confirm(
+            "Start a completely new game?"
+        );
 
     if (!answer) {
 
@@ -743,12 +834,14 @@ function newGame() {
 
     assignments = {};
 
-    gameStarted = false;
 
+    document
+        .getElementById("playerInput")
+        .value = "";
 
-    document.getElementById("playerInput").value = "";
-
-    document.getElementById("missionInput").value = "";
+    document
+        .getElementById("missionInput")
+        .value = "";
 
 
     updatePlayerList();
@@ -758,18 +851,21 @@ function newGame() {
 
     hideAllScreens();
 
-    document.getElementById("setupScreen").classList.remove("hidden");
+    document
+        .getElementById("setupScreen")
+        .classList.remove("hidden");
 
 }
 
 
-// -----------------------------
-// SECURITY
-// -----------------------------
+// =====================================
+// HTML SAFETY
+// =====================================
 
 function escapeHTML(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.textContent = text;
 
