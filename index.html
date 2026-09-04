@@ -1,722 +1,1112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spy vs Crew</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: #1d1d1d;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
+<title>Mission Game</title>
 
-        h1 {
-            text-align: center;
-            font-size: 38px;
-            margin-bottom: 8px;
-        }
+<style>
 
-        .subtitle {
-            text-align: center;
-            color: #aaa;
-            margin-bottom: 25px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        h2 {
-            margin-bottom: 15px;
-        }
+body {
+    margin: 0;
+    padding: 20px;
 
-        input, textarea, select {
-            width: 100%;
-            padding: 13px;
-            border-radius: 10px;
-            border: none;
-            margin-bottom: 10px;
-            background: #2b2b2b;
-            color: white;
-            font-size: 16px;
-        }
+    min-height: 100vh;
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+    background: #111;
+    color: white;
 
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: #5865f2;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-        }
+    font-family: Arial, sans-serif;
 
-        button:hover {
-            background: #4752c4;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .danger {
-            background: #e74c3c;
-        }
+.container {
+    width: 100%;
+    max-width: 500px;
 
-        .danger:hover {
-            background: #c0392b;
-        }
+    background: #1d1d1d;
 
-        .secondary {
-            background: #444;
-        }
+    border-radius: 22px;
 
-        .secondary:hover {
-            background: #555;
-        }
+    padding: 25px;
 
-        .player-list {
-            margin: 15px 0;
-        }
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.5);
+}
 
-        .player {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #292929;
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-        }
+h1 {
+    text-align: center;
+    font-size: 38px;
 
-        .remove {
-            width: auto;
-            margin: 0;
-            padding: 6px 10px;
-            background: #e74c3c;
-            font-size: 13px;
-        }
+    margin-bottom: 8px;
+}
 
-        .hidden {
-            display: none;
-        }
+h2 {
+    margin-top: 25px;
+}
 
-        .role-card {
-            text-align: center;
-            padding: 35px 20px;
-            border-radius: 18px;
-            margin: 20px 0;
-        }
+.subtitle {
+    text-align: center;
+    color: #aaa;
 
-        .crew {
-            background: #176b3a;
-        }
+    margin-bottom: 25px;
+}
 
-        .spy {
-            background: #761c1c;
-        }
+input,
+textarea {
 
-        .role-icon {
-            font-size: 70px;
-            margin-bottom: 15px;
-        }
+    width: 100%;
 
-        .role-title {
-            font-size: 40px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    padding: 14px;
 
-        .mission {
-            margin-top: 25px;
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
-        }
+    border: none;
 
-        .mission h3 {
-            margin-bottom: 10px;
-        }
+    border-radius: 10px;
 
-        .warning {
-            color: #ffcc00;
-            text-align: center;
-            margin: 10px 0;
-        }
+    background: #2b2b2b;
 
-        .player-choice {
-            margin-bottom: 15px;
-        }
+    color: white;
 
-        .player-choice button {
-            background: #292929;
-            text-align: left;
-        }
+    font-size: 16px;
 
-        .player-choice button:hover {
-            background: #3b3b3b;
-        }
+    margin-bottom: 10px;
+}
 
-        .count {
-            color: #aaa;
-            margin-bottom: 15px;
-        }
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
 
-        .game-info {
-            text-align: center;
-            background: #292929;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
+button {
 
-        .game-info strong {
-            color: #5865f2;
-        }
-    </style>
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    margin-top: 8px;
+
+    background: #5865f2;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4752c4;
+}
+
+.secondary {
+    background: #444;
+}
+
+.secondary:hover {
+    background: #555;
+}
+
+.danger {
+    background: #d33;
+}
+
+.danger:hover {
+    background: #b22;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* PLAYER LIST */
+
+.player {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #292929;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    margin-bottom: 8px;
+}
+
+.remove {
+
+    width: auto;
+
+    padding: 6px 10px;
+
+    margin: 0;
+
+    background: #d33;
+
+    font-size: 13px;
+}
+
+
+/* MISSION LIST */
+
+.mission-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: #292929;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    margin-bottom: 8px;
+}
+
+.mission-text {
+    flex: 1;
+}
+
+.remove-mission {
+
+    width: auto;
+
+    padding: 6px 10px;
+
+    margin: 0;
+
+    background: #d33;
+
+    font-size: 13px;
+}
+
+
+/* COUNT */
+
+.count {
+
+    color: #aaa;
+
+    margin: 10px 0 15px;
+}
+
+
+/* NAME SELECTION */
+
+.name-button {
+
+    background: #292929;
+
+    text-align: left;
+
+    margin-bottom: 8px;
+}
+
+.name-button:hover {
+    background: #3b3b3b;
+}
+
+
+/* ROLE / MISSION */
+
+.mission-card {
+
+    text-align: center;
+
+    background: #5a287d;
+
+    padding: 30px 20px;
+
+    border-radius: 18px;
+
+    margin: 25px 0;
+}
+
+.mission-icon {
+
+    font-size: 70px;
+
+    margin-bottom: 15px;
+}
+
+.mission-title {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+.mission-content {
+
+    background: rgba(0,0,0,0.3);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+}
+
+.warning {
+
+    text-align: center;
+
+    color: #ffcc00;
+
+    margin: 15px 0;
+}
+
+
+/* GAME READY */
+
+.ready {
+
+    text-align: center;
+
+    background: #292929;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    margin: 20px 0;
+}
+
+.ready-number {
+
+    font-size: 45px;
+
+    font-weight: bold;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-    <!-- SETUP SCREEN -->
-    <div id="setupScreen">
 
-        <h1>🕵️ Spy vs Crew</h1>
-        <p class="subtitle">
-            Add players, choose the spies, then let the game begin!
-        </p>
+<!-- ==================================
+     SETUP SCREEN
+================================== -->
 
-        <h2>Players</h2>
+<div id="setupScreen">
 
-        <input
-            type="text"
-            id="nameInput"
-            placeholder="Enter player name..."
-            onkeydown="handleEnter(event)"
-        >
+    <h1>🎭 Mission Game</h1>
 
-        <button onclick="addPlayer()">
-            ➕ Add Player
-        </button>
+    <p class="subtitle">
+        Everyone gets a secret mission.
+        Complete yours or face the penalty!
+    </p>
 
-        <div class="count" id="playerCount">
-            0 players
-        </div>
 
-        <div class="player-list" id="playerList"></div>
+    <!-- PLAYERS -->
 
-        <h2>Number of Spies</h2>
+    <h2>👥 Players</h2>
 
-        <select id="spyCount">
-            <option value="1">1 Spy</option>
-            <option value="2">2 Spies</option>
-            <option value="3">3 Spies</option>
-            <option value="4">4 Spies</option>
-            <option value="5">5 Spies</option>
-        </select>
+    <input
+        type="text"
+        id="playerInput"
+        placeholder="Enter a player's name..."
+        onkeydown="playerEnter(event)"
+    >
 
-        <h2>Spy Mission</h2>
+    <button onclick="addPlayer()">
+        ➕ Add Player
+    </button>
 
-        <textarea
-            id="missionInput"
-            placeholder="Example: Get someone to say the word 'banana' without them realizing..."
-        ></textarea>
+    <div
+        class="count"
+        id="playerCount">
 
-        <button onclick="startGame()">
-            🎲 Separate Teams
-        </button>
+        0 players
 
     </div>
 
-
-    <!-- PLAYER SELECTION SCREEN -->
-    <div id="selectionScreen" class="hidden">
-
-        <h1>👤 Who Are You?</h1>
-
-        <p class="subtitle">
-            Choose your name to secretly check your role.
-        </p>
-
-        <div id="playerButtons"></div>
-
-        <button class="secondary" onclick="backToSetup()">
-            ← Back
-        </button>
-
-    </div>
+    <div id="playerList"></div>
 
 
-    <!-- ROLE SCREEN -->
-    <div id="roleScreen" class="hidden">
 
-        <h1 id="playerGreeting"></h1>
+    <!-- MISSIONS -->
 
-        <div id="roleCard" class="role-card">
+    <h2>🎯 Missions</h2>
 
-            <div class="role-icon" id="roleIcon"></div>
+    <textarea
+        id="missionInput"
+        placeholder="Write a mission..."
+    ></textarea>
 
-            <div class="role-title" id="roleTitle"></div>
+    <button onclick="addMission()">
+        ➕ Add Mission
+    </button>
 
-            <p id="roleDescription"></p>
+    <div
+        class="count"
+        id="missionCount">
 
-            <div class="mission" id="missionBox">
-
-                <h3>🎯 YOUR MISSION</h3>
-
-                <p id="missionText"></p>
-
-            </div>
-
-        </div>
-
-        <p class="warning">
-            ⚠️ Don't let anyone else see this screen!
-        </p>
-
-        <button onclick="hideRole()">
-            🙈 Hide My Role
-        </button>
+        0 missions
 
     </div>
 
+    <div id="missionList"></div>
 
-    <!-- GAME SCREEN -->
-    <div id="gameScreen" class="hidden">
 
-        <h1>🎮 Game Started!</h1>
+    <!-- START -->
 
-        <div class="game-info">
-            <p>Everyone has received their secret role.</p>
-            <br>
-            <p>There are <strong id="spyNumberDisplay"></strong> spies.</p>
-        </div>
+    <button
+        onclick="distributeMissions()">
 
-        <button onclick="showSelection()">
-            🔍 Check My Role
-        </button>
+        🎲 DISTRIBUTE MISSIONS
 
-        <button class="danger" onclick="resetGame()">
-            🔄 New Game
-        </button>
-
-    </div>
+    </button>
 
 </div>
 
 
+
+<!-- ==================================
+     READY SCREEN
+================================== -->
+
+<div
+    id="readyScreen"
+    class="hidden">
+
+    <h1>🎉 Game Ready!</h1>
+
+    <div class="ready">
+
+        <div class="ready-number"
+             id="readyPlayers">
+
+            16
+
+        </div>
+
+        <p>players</p>
+
+        <div class="ready-number"
+             id="readyMissions">
+
+            16
+
+        </div>
+
+        <p>secret missions</p>
+
+    </div>
+
+    <p class="subtitle">
+
+        Pass the phone around.
+        Each person selects their name.
+
+    </p>
+
+    <button onclick="showNameSelection()">
+
+        👤 Check My Mission
+
+    </button>
+
+    <button
+        class="danger"
+        onclick="newGame()">
+
+        🔄 New Game
+
+    </button>
+
+</div>
+
+
+
+<!-- ==================================
+     NAME SELECTION
+================================== -->
+
+<div
+    id="nameScreen"
+    class="hidden">
+
+    <h1>👤 Who Are You?</h1>
+
+    <p class="subtitle">
+
+        Select your name to see your
+        secret mission.
+
+    </p>
+
+
+    <div id="nameButtons"></div>
+
+
+    <button
+        class="secondary"
+        onclick="showReady()">
+
+        ← Back
+
+    </button>
+
+</div>
+
+
+
+<!-- ==================================
+     SECRET MISSION
+================================== -->
+
+<div
+    id="missionScreen"
+    class="hidden">
+
+    <h1 id="helloName">
+
+        Hello!
+
+    </h1>
+
+
+    <div class="mission-card">
+
+        <div class="mission-icon">
+            🎯
+        </div>
+
+        <div class="mission-title">
+            YOUR SECRET MISSION
+        </div>
+
+        <div
+            class="mission-content"
+            id="secretMission">
+
+        </div>
+
+    </div>
+
+
+    <p class="warning">
+
+        ⚠️ DON'T LET ANYONE ELSE SEE THIS!
+
+    </p>
+
+
+    <button onclick="hideMission()">
+
+        🙈 Hide Mission
+
+    </button>
+
+</div>
+
+
+</div>
+
+
+
 <script>
 
-    let players = [];
-    let gameStarted = false;
-    let roles = {};
-    let mission = "";
+
+/* ==================================
+   GAME DATA
+================================== */
+
+let players = [];
+
+let missions = [];
+
+let assignments = {};
+
+let gameStarted = false;
 
 
-    // ----------------------------
-    // ADD PLAYER
-    // ----------------------------
 
-    function addPlayer() {
+/* ==================================
+   SCREEN CONTROL
+================================== */
 
-        const input = document.getElementById("nameInput");
-        const name = input.value.trim();
+function hideAllScreens() {
 
-        if (name === "") {
-            alert("Please enter a name!");
-            return;
-        }
+    document
+        .getElementById("setupScreen")
+        .classList.add("hidden");
 
-        if (players.includes(name)) {
-            alert("That name is already added!");
-            return;
-        }
+    document
+        .getElementById("readyScreen")
+        .classList.add("hidden");
 
-        players.push(name);
+    document
+        .getElementById("nameScreen")
+        .classList.add("hidden");
 
-        input.value = "";
+    document
+        .getElementById("missionScreen")
+        .classList.add("hidden");
 
-        updatePlayerList();
+}
+
+
+function showReady() {
+
+    hideAllScreens();
+
+    document
+        .getElementById("readyScreen")
+        .classList
+        .remove("hidden");
+
+}
+
+
+
+/* ==================================
+   ADD PLAYER
+================================== */
+
+function addPlayer() {
+
+    const input =
+        document.getElementById("playerInput");
+
+    const name =
+        input.value.trim();
+
+
+    if (name === "") {
+
+        alert("Please enter a name!");
+
+        return;
+
     }
 
 
-    function handleEnter(event) {
+    if (players.includes(name)) {
 
-        if (event.key === "Enter") {
-            addPlayer();
-        }
+        alert("That player is already added!");
+
+        return;
 
     }
 
 
-    // ----------------------------
-    // DISPLAY PLAYERS
-    // ----------------------------
+    players.push(name);
 
-    function updatePlayerList() {
+    input.value = "";
 
-        const list = document.getElementById("playerList");
+    updatePlayerList();
 
-        list.innerHTML = "";
+}
 
-        players.forEach((player, index) => {
 
-            const div = document.createElement("div");
 
-            div.className = "player";
+/* ENTER KEY */
+
+function playerEnter(event) {
+
+    if (event.key === "Enter") {
+
+        addPlayer();
+
+    }
+
+}
+
+
+
+/* ==================================
+   UPDATE PLAYER LIST
+================================== */
+
+function updatePlayerList() {
+
+    const list =
+        document.getElementById("playerList");
+
+
+    list.innerHTML = "";
+
+
+    players.forEach(
+        (player, index) => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "player";
+
 
             div.innerHTML = `
-                <span>👤 ${player}</span>
-                <button class="remove"
-                        onclick="removePlayer(${index})">
+
+                <span>
+                    👤 ${escapeHTML(player)}
+                </span>
+
+                <button
+                    class="remove"
+                    onclick="removePlayer(${index})">
+
                     ✕
+
                 </button>
+
             `;
+
 
             list.appendChild(div);
 
-        });
-
-        document.getElementById("playerCount").textContent =
-            players.length + (players.length === 1 ? " player" : " players");
-    }
-
-
-    function removePlayer(index) {
-
-        players.splice(index, 1);
-
-        updatePlayerList();
-
-    }
-
-
-    // ----------------------------
-    // START GAME
-    // ----------------------------
-
-    function startGame() {
-
-        if (players.length < 3) {
-
-            alert("You need at least 3 players!");
-
-            return;
         }
-
-        const spyCount =
-            parseInt(document.getElementById("spyCount").value);
-
-        if (spyCount >= players.length) {
-
-            alert("You need more crew members than spies!");
-
-            return;
-        }
-
-        mission =
-            document.getElementById("missionInput").value.trim();
-
-        if (mission === "") {
-
-            alert("Please enter a mission for the spies!");
-
-            return;
-        }
+    );
 
 
-        // Create all crew roles first
+    document
+        .getElementById("playerCount")
+        .textContent =
 
-        roles = {};
+        players.length +
+        (players.length === 1
+            ? " player"
+            : " players");
 
-        players.forEach(player => {
-
-            roles[player] = "crew";
-
-        });
-
-
-        // Shuffle players
-
-        let shuffled = [...players];
-
-        shuffle(shuffled);
+}
 
 
-        // Assign spies
 
-        for (let i = 0; i < spyCount; i++) {
+/* REMOVE PLAYER */
 
-            roles[shuffled[i]] = "spy";
+function removePlayer(index) {
 
-        }
+    players.splice(index, 1);
 
+    updatePlayerList();
 
-        gameStarted = true;
-
-
-        document.getElementById("spyNumberDisplay").textContent =
-            spyCount;
+}
 
 
-        showSelection();
+
+/* ==================================
+   ADD MISSION
+================================== */
+
+function addMission() {
+
+    const input =
+        document.getElementById("missionInput");
+
+
+    const mission =
+        input.value.trim();
+
+
+    if (mission === "") {
+
+        alert("Please write a mission!");
+
+        return;
 
     }
 
 
-    // ----------------------------
-    // RANDOM SHUFFLE
-    // ----------------------------
+    missions.push(mission);
 
-    function shuffle(array) {
+    input.value = "";
 
-        for (let i = array.length - 1; i > 0; i--) {
+    updateMissionList();
 
-            const j = Math.floor(Math.random() * (i + 1));
-
-            [array[i], array[j]] =
-                [array[j], array[i]];
-
-        }
-
-    }
+}
 
 
-    // ----------------------------
-    // SHOW PLAYER SELECTION
-    // ----------------------------
 
-    function showSelection() {
+/* ==================================
+   UPDATE MISSION LIST
+================================== */
 
-        hideAllScreens();
+function updateMissionList() {
 
-        document
-            .getElementById("selectionScreen")
-            .classList.remove("hidden");
+    const list =
+        document.getElementById("missionList");
 
 
-        const container =
-            document.getElementById("playerButtons");
-
-        container.innerHTML = "";
+    list.innerHTML = "";
 
 
-        players.forEach(player => {
+    missions.forEach(
+        (mission, index) => {
 
-            const div = document.createElement("div");
+            const div =
+                document.createElement("div");
 
-            div.className = "player-choice";
+            div.className =
+                "mission-item";
+
 
             div.innerHTML = `
-                <button onclick="showRole('${escapeQuotes(player)}')">
-                    👤 ${player}
+
+                <span class="mission-text">
+                    🎯 ${escapeHTML(mission)}
+                </span>
+
+                <button
+                    class="remove-mission"
+                    onclick="removeMission(${index})">
+
+                    ✕
+
                 </button>
+
             `;
 
-            container.appendChild(div);
 
-        });
+            list.appendChild(div);
+
+        }
+    );
+
+
+    document
+        .getElementById("missionCount")
+        .textContent =
+
+        missions.length +
+        (missions.length === 1
+            ? " mission"
+            : " missions");
+
+}
+
+
+
+/* REMOVE MISSION */
+
+function removeMission(index) {
+
+    missions.splice(index, 1);
+
+    updateMissionList();
+
+}
+
+
+
+/* ==================================
+   DISTRIBUTE MISSIONS
+================================== */
+
+function distributeMissions() {
+
+    if (players.length !== 16) {
+
+        alert(
+            "You need exactly 16 players!"
+        );
+
+        return;
 
     }
 
 
-    // ----------------------------
-    // SHOW ROLE
-    // ----------------------------
+    if (missions.length < players.length) {
 
-    function showRole(player) {
+        alert(
+            "You need at least 16 missions!"
+        );
 
-        hideAllScreens();
+        return;
 
-        document
-            .getElementById("roleScreen")
-            .classList.remove("hidden");
+    }
 
 
-        document.getElementById("playerGreeting").textContent =
+    /*
+       Make a copy of the missions
+       and shuffle them.
+    */
+
+    let shuffledMissions =
+        [...missions];
+
+
+    shuffle(shuffledMissions);
+
+
+    assignments = {};
+
+
+    /*
+       Give each player
+       one unique mission.
+    */
+
+    players.forEach(
+        (player, index) => {
+
+            assignments[player] =
+                shuffledMissions[index];
+
+        }
+    );
+
+
+    gameStarted = true;
+
+
+    document
+        .getElementById("readyPlayers")
+        .textContent =
+            players.length;
+
+
+    document
+        .getElementById("readyMissions")
+        .textContent =
+            players.length;
+
+
+    showReady();
+
+}
+
+
+
+/* ==================================
+   SHUFFLE
+================================== */
+
+function shuffle(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+}
+
+
+
+/* ==================================
+   NAME SELECTION
+================================== */
+
+function showNameSelection() {
+
+    hideAllScreens();
+
+
+    const container =
+        document.getElementById("nameButtons");
+
+
+    container.innerHTML = "";
+
+
+    players.forEach(
+        player => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "name-button";
+
+
+            button.textContent =
+                "👤 " + player;
+
+
+            button.onclick =
+                () => showMission(player);
+
+
+            container.appendChild(button);
+
+        }
+    );
+
+
+    document
+        .getElementById("nameScreen")
+        .classList
+        .remove("hidden");
+
+}
+
+
+
+/* ==================================
+   SHOW SECRET MISSION
+================================== */
+
+function showMission(player) {
+
+    hideAllScreens();
+
+
+    document
+        .getElementById("helloName")
+        .textContent =
             "Hello, " + player + "!";
 
 
-        const role =
-            roles[player];
+    document
+        .getElementById("secretMission")
+        .textContent =
+            assignments[player];
 
 
-        const card =
-            document.getElementById("roleCard");
+    document
+        .getElementById("missionScreen")
+        .classList
+        .remove("hidden");
 
-        const icon =
-            document.getElementById("roleIcon");
+}
 
-        const title =
-            document.getElementById("roleTitle");
 
-        const description =
-            document.getElementById("roleDescription");
 
-        const missionBox =
-            document.getElementById("missionBox");
+/* ==================================
+   HIDE MISSION
+================================== */
 
+function hideMission() {
 
-        if (role === "spy") {
+    /*
+       We return to the name selection
+       screen so the next person can
+       choose their name.
+    */
 
-            card.className = "role-card spy";
+    showNameSelection();
 
-            icon.textContent = "🕵️";
+}
 
-            title.textContent = "YOU ARE A SPY";
 
-            description.textContent =
-                "Blend in with the crew and complete your secret mission.";
 
-            document.getElementById("missionText").textContent =
-                mission;
+/* ==================================
+   NEW GAME
+================================== */
 
-            missionBox.style.display = "block";
+function newGame() {
 
-        }
+    const answer =
+        confirm(
+            "Start a completely new game?"
+        );
 
-        else {
 
-            card.className = "role-card crew";
+    if (!answer) return;
 
-            icon.textContent = "🧑‍🔧";
 
-            title.textContent = "YOU ARE CREW";
+    players = [];
 
-            description.textContent =
-                "Find the spies before they complete their missions!";
+    missions = [];
 
-            missionBox.style.display = "none";
+    assignments = {};
 
-        }
+    gameStarted = false;
 
-    }
 
+    document
+        .getElementById("playerInput")
+        .value = "";
 
-    // ----------------------------
-    // HIDE ROLE
-    // ----------------------------
 
-    function hideRole() {
+    document
+        .getElementById("missionInput")
+        .value = "";
 
-        if (gameStarted) {
 
-            showSelection();
+    updatePlayerList();
 
-        }
+    updateMissionList();
 
-    }
 
+    hideAllScreens();
 
-    // ----------------------------
-    // HIDE ALL
-    // ----------------------------
 
-    function hideAllScreens() {
+    document
+        .getElementById("setupScreen")
+        .classList
+        .remove("hidden");
 
-        document
-            .getElementById("setupScreen")
-            .classList.add("hidden");
+}
 
-        document
-            .getElementById("selectionScreen")
-            .classList.add("hidden");
 
-        document
-            .getElementById("roleScreen")
-            .classList.add("hidden");
 
-        document
-            .getElementById("gameScreen")
-            .classList.add("hidden");
+/* ==================================
+   ESCAPE HTML
+================================== */
 
-    }
+function escapeHTML(text) {
 
+    const div =
+        document.createElement("div");
 
-    // ----------------------------
-    // BACK TO SETUP
-    // ----------------------------
+    div.textContent = text;
 
-    function backToSetup() {
+    return div.innerHTML;
 
-        hideAllScreens();
+}
 
-        document
-            .getElementById("setupScreen")
-            .classList.remove("hidden");
-
-    }
-
-
-    // ----------------------------
-    // RESET GAME
-    // ----------------------------
-
-    function resetGame() {
-
-        const confirmReset =
-            confirm("Start a completely new game?");
-
-        if (!confirmReset) return;
-
-        players = [];
-
-        roles = {};
-
-        mission = "";
-
-        gameStarted = false;
-
-        document.getElementById("missionInput").value = "";
-
-        document.getElementById("nameInput").value = "";
-
-        updatePlayerList();
-
-        hideAllScreens();
-
-        document
-            .getElementById("setupScreen")
-            .classList.remove("hidden");
-
-    }
-
-
-    // Prevent names containing quotes from breaking onclick
-
-    function escapeQuotes(text) {
-
-        return text
-            .replace(/\\/g, "\\\\")
-            .replace(/'/g, "\\'");
-
-    }
 
 </script>
 
 </body>
+
 </html>
